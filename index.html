@@ -901,18 +901,21 @@
         </div>
       </div>
 
-      <div class="btn-wrap" style="margin-top:20px;flex-direction:column;gap:10px">
-        <a class="cta-btn" id="ctaLink" href="https://roomy.app" target="_blank" onclick="trackClick()">
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+        <input id="wl-name" type="text" placeholder="Your name" autocomplete="name"
+          style="width:100%;box-sizing:border-box;padding:13px 16px;border-radius:50px;border:1.5px solid var(--input-b);background:var(--input-bg);color:var(--txt);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;"
+        >
+        <input id="wl-email" type="email" placeholder="Your email" autocomplete="email"
+          style="width:100%;box-sizing:border-box;padding:13px 16px;border-radius:50px;border:1.5px solid var(--input-b);background:var(--input-bg);color:var(--txt);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;"
+        >
+        <button class="cta-btn" id="ctaLink" onclick="trackClick()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
+            <path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="10" />
           </svg>
-          Join the waitlist
-        </a>
-        <button class="bts" onclick="gp(4)" style="width:100%;text-align:center"><span id="t-skip">Not interested →
-            Submit anyway</span></button>
+          <span id="t-cta">Join the waitlist</span>
+        </button>
+        <button class="bts" onclick="gp(4)" style="width:100%;text-align:center"><span id="t-skip">Not interested → Submit anyway</span></button>
       </div>
 
     </div>
@@ -1163,6 +1166,16 @@
 
     /* ── CTA TRACKING ── */
     function trackClick() {
+      const name = document.getElementById('wl-name').value.trim();
+      const email = document.getElementById('wl-email').value.trim();
+      if (!name || !email) {
+        // Highlight missing fields
+        if (!name) document.getElementById('wl-name').style.borderColor = '#e04040';
+        if (!email) document.getElementById('wl-email').style.borderColor = '#e04040';
+        return;
+      }
+      R.wl_name = name;
+      R.wl_email = email;
       R.clicked_cta = true;
       R.cta_ts = new Date().toISOString();
       submitData();
