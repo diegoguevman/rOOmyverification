@@ -1236,11 +1236,16 @@
       localStorage.setItem('rOOmy_short_responses', JSON.stringify(all));
       // Upload
       if (SHEET_URL && SHEET_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+        console.log('Submitting to GAS:', JSON.stringify(R));
         fetch(SHEET_URL, {
           method: 'POST', mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(R),
-        }).catch(() => { });
+        }).then(() => {
+          console.log('Fetch completed (opaque response with no-cors)');
+        }).catch((err) => {
+          console.error('Fetch error:', err);
+        });
       }
     }
 
