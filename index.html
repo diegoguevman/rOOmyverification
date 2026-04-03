@@ -1238,7 +1238,7 @@
       if (SHEET_URL && SHEET_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
         fetch(SHEET_URL, {
           method: 'POST', mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(R),
         }).catch(() => { });
       }
